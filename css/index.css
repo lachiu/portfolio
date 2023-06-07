@@ -4,127 +4,153 @@
 body {
     background: linear-gradient(45deg, #57003f 0%,#f57453 100%); 
     font-family: Ubuntu;
+    font-size: 17px;
 }
 
 #container {  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-  height: 100vh;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    height: 100vh;
 }
 
 #terminal {
-  width: 70vw;  
-  height: 65vh;  
-  box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+    width: 70vw;  
+    height: 65vh;  
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
 }
 
 #terminal_menu_bar {  
-  display: flex;  
-  width: 100%;  
-  height: 30px;  
-  align-items: center;  
-  padding: 0 8px;  
-  box-sizing: border-box;  
-  border-top-left-radius: 5px;  
-  border-top-right-radius: 5px;  
-  background: linear-gradient(#504b45 0%,#3c3b37 100%);
+    display: flex;  
+    width: 100%;  
+    height: 30px;  
+    align-items: center;  
+    padding: 0 8px;  
+    box-sizing: border-box;  
+    border-top-left-radius: 5px;  
+    border-top-right-radius: 5px;  
+    background: linear-gradient(#504b45 0%,#3c3b37 100%);
 }
 
 #menu_bar_buttons {  
-  display: flex;  
-  align-items: center;
+    display: flex;  
+    align-items: center;
 }
 
 .menu_bar_button {  
-  display: flex;  
-  justify-content: center;  
-  align-items: center;  
-  padding: 0;  
-  margin-right: 5px;  
-  font-size: 8px;  
-  height: 12px;  
-  width: 12px;  
-  box-sizing: border-box;  
-  border: none;  
-  border-radius: 100%;  
-  background: linear-gradient(#7d7871 0%, #595953 100%);  
-  text-shadow: 0px 1px 0px rgba(255,255,255,0.2);  
-  box-shadow: 0px 0px 1px 0px #41403A, 0px 1px 1px 0px #474642;
+    display: flex;  
+    justify-content: center;  
+    align-items: center;  
+    padding: 0;  
+    margin-right: 5px;  
+    font-size: 8px;  
+    height: 12px;  
+    width: 12px;  
+    box-sizing: border-box;  
+    border: none;  
+    border-radius: 100%;  
+    background: linear-gradient(#7d7871 0%, #595953 100%);  
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.2);  
+    box-shadow: 0px 0px 1px 0px #41403A, 0px 1px 1px 0px #474642;
 }
 
 .menu_bar_button:hover {  
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .menu_bar_button:focus {  
-  outline: none;
+    outline: none;
 }
 
 #menu_bar_exit_button {  
-  background: linear-gradient(#f37458 0%, #de4c12 100%);    
-  background-clip: padding-box;
+    background: linear-gradient(#f37458 0%, #de4c12 100%);    
+    background-clip: padding-box;
 }
 
 #menu_bar_server {   
-  color: #d5d0ce;  
-  margin-left: 6px;  
-  font-size: 14px;  
-  line-height: 15px;
+    color: #d5d0ce;  
+    margin-left: 6px;  
+    font-size: 14px;  
+    line-height: 15px;
 }
 
 #terminal_body {  
-  background: rgba(56, 4, 40, 0.9);  
-  font-family: 'Ubuntu Mono';  
-  height: calc(100% - 30px);  
-  padding-top: 2px;  
-  margin-top: -1px;
+    background: rgba(56, 4, 40, 0.9);  
+    font-family: 'Ubuntu Mono';  
+    height: calc(100% - 30px);  
+    padding-top: 2px;  
+    margin-top: -1px;
 }
 
-#terminal_prompt {  
-  display: flex;
+#terminal_commands {
+    margin-top: 1px;
+    margin-left: 4px;
 }
 
-#terminal_prompt_username, #terminal_prompt_username_hostname_seperator, #terminal_prompt_hostname, #terminal_prompt_seperator {  
-  color: #7eda28;
+.terminal_prompt_line {
+    display: flex;
+    color: #ffffff;
 }
 
-#terminal_prompt_path {
-  color: #4878c0;
+#terminal_prompt_username, #terminal_prompt_username_hostname_seperator, #terminal_prompt_hostname, #terminal_prompt_seperator, .terminal_prompt_history {  
+    color: #7eda28;
 }
 
-#terminal_prompt_symbol {  
-  color: #dddddd;
+.terminal_prompt_path {
+    color: #4878c0;
+}
+
+.terminal_prompt_symbol {  
+    color: #dddddd;
+}
+
+#active_command {
+    display: flex;
+}
+
+input[type=text] {
+    all: unset;
+    color: #ffffff;
+    caret-color: transparent;
+    display: inline;
+    width: 0ch;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    margin-left: -205px;
+    margin-top: 17px;
+    margin-bottom: 3px;
 }
 
 #terminal_prompt_cursor {  
-  display: block;  
-  height: 17px;  
-  width: 8px;  
-  margin-left: 9px;  
-  animation: blink 1200ms linear infinite;
-} 
+    display: block;
+    height: 17px;
+    width: 3px;
+    animation: blink 1200ms linear infinite;
+}
 
 @keyframes blink {  
-  0% {    
-    background: #ffffff;  
-  }  
-  49% {    
-    background: #ffffff;  
-  }  
-  60% {    
-    background: transparent;  
-  }  
-  99% {    
-    background: transparent;  
-  }  100% {    
-    background: #ffffff;  
-  }
+    0% {    
+        background: #ffffff;  
+    }  
+    49% {    
+        background: #ffffff;  
+    }  
+    60% {    
+        background: transparent;  
+    }  
+    99% {    
+        background: transparent;  
+    }  100% {    
+        background: #ffffff;  
+    }
 }
 
 @media (max-width: 600px) {  
-  #terminal {    
-    max-height: 90%;    
-    width: 90%;  
-  }
+    #terminal {    
+        max-height: 90%;
+        width: 90%;
+    }
 }

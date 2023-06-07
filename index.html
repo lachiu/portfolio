@@ -19,19 +19,39 @@
                     <p id="menu_bar_server">SSH | 127.0.0.1:22</p>
                 </section>
                 <section id="terminal_body">
-                    <div id="terminal_prompt">
-                        <span id="terminal_prompt_username">bezoeker</span>
-                        <span id="terminal_prompt_username_hostname_seperator">@</span>
-                        <span id="terminal_prompt_hostname">portfolio</span>
-                        <span id="terminal_prompt_seperator">:</span>
-                        <span id="terminal_prompt_path">~</span>
-                        <span id="terminal_prompt_symbol">$</span>
-                        <span id="terminal_prompt_cursor"></span>
-                    </div>
+                    <div id="terminal_commands">
+                        <!-- <div class="terminal_prompt_line">
+                            <span class="terminal_prompt_history">bezoeker@portfolio:</span>
+                            <span class="terminal_prompt_path">~</span>
+                            <span class="terminal_prompt_symbol">$&nbsp;</span>
+                            <span class="old_command">ls</span>
+                            <div class="result">
+                            </div>
+                        </div> -->
+                        <div class="terminal_prompt_line" id="active_line">
+                            <span id="terminal_prompt_username">bezoeker</span>
+                            <span id="terminal_prompt_username_hostname_seperator">@</span>
+                            <span id="terminal_prompt_hostname">portfolio</span>
+                            <span id="terminal_prompt_seperator">:</span>
+                            <span class="terminal_prompt_path" id="active_terminal_prompt_path">~</span>
+                            <span class="terminal_prompt_symbol" id="active_terminal_prompt_symbol">$&nbsp;</span>
+                            <form id="active_command" action="">
+                                <input type="text" name="command" id="terminal_prompt_command" spellcheck="false" autocomplete="off" autofocus>
+                                <span id="terminal_prompt_cursor"></span>
+                                <input type="submit" value="submit" style="display:none;">
+                            </form>
+                        </div>
+                    </div>                    
                 </section>
             </div>
         </main>
         <!-- [USERNAME]@[HOSTNAME]:[PATH][SYMBOL] -->
-    </body>
-    <script src="js/main.js"></script>
+        <div id="scripts">
+            <script src="js/main.js"></script>
+            <script src="js/commands/error.js"></script>
+        </div>
+    </body>    
+    <!-- <script src="js/commands/ls.js"></script>    
+    <script src="js/commands/help.js"></script>
+    <script src="js/commands/exit.js"></script> -->
 </html>
