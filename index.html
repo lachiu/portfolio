@@ -35,9 +35,9 @@
                             <span id="terminal_prompt_seperator">:</span>
                             <span class="terminal_prompt_path" id="active_terminal_prompt_path">~</span>
                             <span class="terminal_prompt_symbol" id="active_terminal_prompt_symbol">$&nbsp;</span>
-                            <form id="active_command" action="">
+                            <form id="active_command" action="POST" onsubmit="return false">
                                 <input type="text" name="command" id="terminal_prompt_command" spellcheck="false" autocomplete="off" autofocus>
-                                <span id="terminal_prompt_cursor"></span>
+                                <span id='terminal_prompt_cursor'></span>
                                 <input type="submit" value="submit" style="display:none;">
                             </form>
                         </div>
@@ -45,13 +45,9 @@
                 </section>
             </div>
         </main>
-        <!-- [USERNAME]@[HOSTNAME]:[PATH][SYMBOL] -->
         <div id="scripts">
             <script src="js/main.js"></script>
             <script src="js/commands/error.js"></script>
         </div>
-    </body>    
-    <!-- <script src="js/commands/ls.js"></script>    
-    <script src="js/commands/help.js"></script>
-    <script src="js/commands/exit.js"></script> -->
+    </body>
 </html>
