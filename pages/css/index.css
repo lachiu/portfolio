@@ -13,10 +13,10 @@
 body {
     height: 100vh;
     background: linear-gradient(45deg, #f57453, #57003f);
-    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
     font-family: Roboto;
-    /* font-size: 50px;     */
-    color: var(--icon-color);
+    color: var(--icon-color);    
 }
 
 nav {
