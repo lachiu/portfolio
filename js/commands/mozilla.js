@@ -44,6 +44,7 @@ function show_mozilla_output($args) {
         document.getElementById("container").appendChild(browser);
     } else {
         result.appendChild(generate_element({elementname: "span", classname: "terminal_line", innerHTML: `${selected_file} <span style=color:orange;>bestaat niet</span>.`}))
+        result.appendChild(generate_element({elementname: "span", classname: "terminal_line", innerHTML: `Type <span style=color:orange;>ls</span> om een lijst te zien van beschikbare bestanden.`}))
     }
     return result;
 }
