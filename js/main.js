@@ -1,8 +1,13 @@
 const terminal_prompt_command=document.getElementById("terminal_prompt_command");
-const accepted_commands=["cd", "ls", "lynx", "help", "exit"];
+const accepted_commands=["cd", "ls", "lynx", "mozilla", "history", "help", "exit"];
 const history=[];
-let current_directory="~";
+let current_directory="";
 let files=null;
+
+function update_current_directory(input) {
+    document.getElementById("active_terminal_prompt_path").textContent=input;
+    current_directory=input;
+}
 
 function handle_on_load() {
     body=document.getElementsByTagName("body");
@@ -19,16 +24,31 @@ function handle_on_load() {
     .then(data => {
         files = data;
     });
-
-    terminal_prompt_command.value="This is a test";
+    update_current_directory("/var/www/portfolio/");
 }
 
 function handle_on_input(event) {
-    console.log(event);
+    console.log(event.currentTarget.textContent);
+    console.log(event.currentTarget.textContent?.length);
+    console.log((event.currentTarget.textContent?.length + 1) + "ch");
+    //current_textcontent=terminal_prompt_command.textContent;
+    document.getElementById("terminal_prompt_cursor")?.remove();
     if (event.code.includes("Key") || event.code.includes("Digit") || event.code.includes("Numpad") || event.code == "Space") {
-        event.currentTarget.style.width = (event.currentTarget.value.length + 1) + "ch";
+        event.currentTarget.style.width = (event.currentTarget.textContent?.length + 2) + "ch";
+        //terminal_prompt_command.textContent=current_textcontent + event.key;
+        //terminal_prompt_command.appendChild(generate_element({elementname: "span", id: "terminal_prompt_cursor"}));
     } else if (event.code == "Backspace" || event.code == "Delete") {
-        event.currentTarget.style.width = (event.currentTarget.value.length - 1) + "ch";
+        event.currentTarget.style.width = (event.currentTarget.textContent?.length) + "ch";
+        //terminal_prompt_command.appendChild(generate_element({elementname: "span", id: "terminal_prompt_cursor"}));
+    } else if (event.code == "ArrowLeft" || event.code == "ArrowRight") {
+        current_position=0;
+        
+        
+
+    } else if (event.code == "Enter") {
+        document.execCommand('insertLineBreak');
+        event.preventDefault();
+        handle_on_submit();
     }
 }
 
@@ -49,18 +69,21 @@ function is_valid_command(input) {
 }
 
 function reset_input() {
-    terminal_prompt_command.value="";
-    terminal_prompt_command.style.width="0ch";
+    terminal_prompt_command.innerHTML="";
+    terminal_prompt_command.style.width="2ch";
 }
 
-// {elementname: "", classname: "", value: "", innerHTML: "", textcontent: "", newattr: "", newvalue: ""}
+// {elementname: "", id: "", classname: "", value: "", innerHTML: "", textcontent: "", newattr: "", newvalue: ""}
 function generate_element(parameters) {
     tmp=null;
     if (typeof parameters.elementname !== "undefined") {
         tmp=document.createElement(parameters.elementname)
+        if (typeof parameters.id !== "undefined") { tmp.id=parameters.id; }
         if (typeof parameters.classname !== "undefined") { tmp.className=parameters.classname; }
         if (typeof parameters.value !== "undefined") { tmp.value=parameters.value; }
         if (typeof parameters.innerHTML !== "undefined") { tmp.innerHTML=parameters.innerHTML; }
+        if (typeof parameters.src !== "undefined") { tmp.src=parameters.src; }
+        if (typeof parameters.style !== "undefined") { tmp.style=parameters.style; }
         if (typeof parameters.textcontent !== "undefined") { tmp.textContent=parameters.textcontent; }
         if (typeof parameters.newattr !== "undefined" && typeof parameters.newvalue !== "undefined") { tmp.setAttribute(parameters.newattr,parameters.newvalue); }
     }
@@ -71,8 +94,9 @@ function handle_command(input) {
     result=null;
     input_array=input.split(" ");
     valid=is_valid_command(input_array);
-    if (valid) {        
-        result=window["show_" + input_array[0] + "_output"](input_array);
+    function_name="show_" + input_array[0] + "_output";
+    if (valid && typeof window[function_name] !== "undefined") {        
+        result=window[function_name](input_array);
         //result="show_" + input_array[0] + "_output"();
         // switch (input_array[0]) {
         //     case "ls":                
@@ -97,8 +121,8 @@ function handle_command(input) {
     return result;
 }
 
-function handle_on_submit(event) {
-    input=terminal_prompt_command.value;
+function handle_on_submit() {
+    input=terminal_prompt_command.textContent;
     console.log(`Input: ${typeof input} - ${input} - ${input.length}`);
     if (typeof input == "string" && input.length>0) {
         username=document.getElementById("terminal_prompt_username").textContent;
@@ -107,32 +131,30 @@ function handle_on_submit(event) {
         seperator=document.getElementById("terminal_prompt_seperator").textContent;
         path=document.getElementById("active_terminal_prompt_path").textContent;
         symbol=document.getElementById("active_terminal_prompt_symbol").textContent;
+        parent_div=document.getElementById("terminal_commands");
         
-
         terminal_prompt_line=generate_element({elementname: "div", classname: "terminal_prompt_line"});
         terminal_prompt_history=generate_element({elementname: "span", classname: "terminal_prompt_history", textcontent: `${username}${user_host_seperator}${hostname}${seperator}`});
         terminal_prompt_path=generate_element({elementname: "span", classname: "terminal_prompt_path", textcontent: path});
         terminal_prompt_symbol=generate_element({elementname: "span", classname: "terminal_prompt_symbol", textcontent: symbol});    
         old_command=generate_element({elementname: "span", classname: "old_command", textcontent: input});
-
-        result=handle_command(input);
-
         terminal_prompt_line.appendChild(terminal_prompt_history);
         terminal_prompt_line.appendChild(terminal_prompt_path);
         terminal_prompt_line.appendChild(terminal_prompt_symbol);
         terminal_prompt_line.appendChild(old_command);
-        if (typeof result !== "undefined" && result !== null) { terminal_prompt_line.appendChild(result); }
-
-        parent_div=document.getElementById("terminal_commands");
         parent_div.insertBefore(terminal_prompt_line, document.getElementById("active_line"));
+
+        terminal_prompt_line=generate_element({elementname: "div", classname: "terminal_prompt_line"});
+        result=handle_command(input);
+        if (typeof result !== "undefined" && result !== null) { terminal_prompt_line.appendChild(result); parent_div.insertBefore(terminal_prompt_line, document.getElementById("active_line")); }
         reset_input();
         parent_div.scrollTop=parent_div.scrollHeight;
+        //terminal_prompt_command.appendChild(generate_element({elementname: "span", id: "terminal_prompt_cursor"}));
     }
-    event.preventDefault();
     return false;
 }
 
 window.addEventListener("load",handle_on_load);
 document.addEventListener("keydown", function() { terminal_prompt_command.focus() });
 terminal_prompt_command.addEventListener("keydown",handle_on_input.bind(this));
-document.getElementById("active_command").addEventListener("submit",handle_on_submit.bind(this));
+//document.getElementById("active_command").addEventListener("submit",handle_on_submit.bind(this));
