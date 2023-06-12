@@ -1,0 +1,125 @@
+{
+    "/": {
+        "parent_folder": "/",
+        "files": [
+            {
+                "name": "var/",
+                "permission": "drwxrwxrwx",
+                "something": 1,
+                "user": "root",
+                "group": "root",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": true                
+            },
+            {
+                "name": "home/",
+                "permission": "drwxrwxrwx",
+                "something": 1,
+                "user": "root",
+                "group": "users",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": true                
+            }
+        ]
+    },
+    "/var/": {
+        "parent_folder": "/",
+        "files": [
+            {
+                "name": "www/",
+                "permission": "drwx------",
+                "something": 1,
+                "user": "www-data",
+                "group": "www-data",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": true                
+            }
+        ]
+    },
+    "/var/www/": {
+        "parent_folder": "/var/",
+        "files": [
+            {
+                "name": "portfolio/",
+                "permission": "drwxrwxrwx",
+                "something": 1,
+                "user": "www-data",
+                "group": "www-data",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": true                
+            }
+        ]
+    },
+    "/var/www/portfolio/": {
+        "parent_folder": "/var/www/",
+        "files": [
+            {
+                "name": "index.html",
+                "permission": "-rw-rw-rw-",
+                "something": 1,
+                "user": "www-data",
+                "group": "www-data",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": false                
+            }
+        ]
+    },
+    "/home/": {
+        "parent_folder": "/",
+        "files": [
+            {
+                "name": "bezoeker/",
+                "permission": "drwx------",
+                "something": 1,
+                "user": "bezoeker",
+                "group": "users",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": true                
+            }
+        ]
+    },
+    "/home/bezoeker/": {
+        "parent_folder": "/home/",
+        "files": [
+            {
+                "name": "uitleg.txt",
+                "permission": "-rw-------",
+                "something": 1,
+                "user": "bezoeker",
+                "group": "bezoeker",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": false
+            }
+        ]
+    },
+    "~": {
+        "parent_folder": "/home/",
+        "files": [
+            {
+                "name": "uitleg.txt",
+                "permission": "-rw-------",
+                "something": 1,
+                "user": "bezoeker",
+                "group": "bezoeker",
+                "size": 0,
+                "date": "Jan 20",
+                "time": "10:00",
+                "folder": false                
+            }
+        ]
+    }
+}
