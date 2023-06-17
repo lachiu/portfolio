@@ -1,30 +1,20 @@
 const terminal_prompt_command=document.getElementById("terminal_prompt_command");
-const accepted_commands=["cd", "ls", "lynx", "mozilla", "history", "help", "exit"];
+const accepted_commands=["cd", "ls", "lynx", "mozilla", "history", "help", "motd", "exit"];
 const history=[];
 let current_directory="";
 let files=null;
+let username=document.getElementById("terminal_prompt_username").textContent;
+let user_host_seperator=document.getElementById("terminal_prompt_username_hostname_seperator").textContent;
+let hostname=document.getElementById("terminal_prompt_hostname").textContent;
+let seperator=document.getElementById("terminal_prompt_seperator").textContent;
+let path=document.getElementById("active_terminal_prompt_path").textContent;
+let symbol=document.getElementById("active_terminal_prompt_symbol").textContent;
+const start_time=new Date();
+let resolution="1440x900";
 
 function update_current_directory(input) {
     document.getElementById("active_terminal_prompt_path").textContent=input;
     current_directory=input;
-}
-
-function handle_on_load() {
-    body=document.getElementsByTagName("body");
-    scripts=document.getElementById("scripts");
-    for (let index = 0; index < accepted_commands.length; index++) {
-        const command = accepted_commands[index];
-        filename="js/commands/" + command + ".js";        
-        element=generate_element({elementname: "script", newattr: "src", newvalue: filename});
-        scripts.appendChild(element);
-    }
-
-    fetch("http://portfolio.localhost/assets/json/files.json")
-    .then(response => response.json())
-    .then(data => {
-        files = data;
-    });
-    update_current_directory("/var/www/portfolio/");
 }
 
 function handle_on_input(event) {
@@ -124,13 +114,7 @@ function handle_command(input) {
 function handle_on_submit() {
     input=terminal_prompt_command.textContent;
     console.log(`Input: ${typeof input} - ${input} - ${input.length}`);
-    if (typeof input == "string" && input.length>0) {
-        username=document.getElementById("terminal_prompt_username").textContent;
-        user_host_seperator=document.getElementById("terminal_prompt_username_hostname_seperator").textContent;
-        hostname=document.getElementById("terminal_prompt_hostname").textContent;
-        seperator=document.getElementById("terminal_prompt_seperator").textContent;
-        path=document.getElementById("active_terminal_prompt_path").textContent;
-        symbol=document.getElementById("active_terminal_prompt_symbol").textContent;
+    if (typeof input == "string" && input.length>0) {        
         parent_div=document.getElementById("terminal_commands");
         
         terminal_prompt_line=generate_element({elementname: "div", classname: "terminal_prompt_line"});
@@ -158,3 +142,24 @@ window.addEventListener("load",handle_on_load);
 document.addEventListener("keydown", function() { terminal_prompt_command.focus() });
 terminal_prompt_command.addEventListener("keydown",handle_on_input.bind(this));
 //document.getElementById("active_command").addEventListener("submit",handle_on_submit.bind(this));
+
+function handle_on_load() {
+    scripts=document.getElementById("scripts");
+    for (let index = 0; index < accepted_commands.length; index++) {
+        const command = accepted_commands[index];
+        filename="js/commands/" + command + ".js";        
+        element=generate_element({elementname: "script", newattr: "src", newvalue: filename});
+        scripts.appendChild(element);
+    }
+
+    fetch("assets/json/files.json")
+    .then(response => response.json())
+    .then(data => {
+        files = data;
+    });
+
+    update_current_directory("/var/www/portfolio/");
+    terminal_prompt_command.textContent="motd";
+    handle_on_submit();
+    if (is_valid_command("motd") && typeof window["show_motd_output"] !== "undefined") { terminal_prompt_command.textContent="motd"; handle_on_submit(); } else { console.log(is_valid_command("motd")); console.log(typeof window["show_motd_output"] !== "undefined"); }
+}
