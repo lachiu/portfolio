@@ -138,7 +138,6 @@ terminal_prompt_command.addEventListener("keydown",handle_on_input.bind(this));
 //document.getElementById("active_command").addEventListener("submit",handle_on_submit.bind(this));
 
 function handle_on_load() {
-    setTimeout(60000);
     scripts=document.getElementById("scripts");
     for (let index = 0; index < accepted_commands.length; index++) {
         const command = accepted_commands[index];
