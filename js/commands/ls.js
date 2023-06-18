@@ -12,7 +12,6 @@ function show_ls_output($args) {
 
     result=generate_element({elementname: "div", classname: "result"});    
     tmp=files[current_directory].files;
-    console.log(tmp.length);
     if (typeof tmp !== "undefined") {
         tmp.forEach(selected_file => {
             permission=selected_file.permission;
