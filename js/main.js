@@ -3,6 +3,7 @@ const accepted_commands=["cd", "ls", "lynx", "mozilla", "history", "help", "motd
 const history=[];
 let current_directory="/var/www/portfolio/";
 let files=null;
+let terminal=document.getElementById("terminal");
 let username=document.getElementById("terminal_prompt_username").textContent;
 let user_host_seperator=document.getElementById("terminal_prompt_username_hostname_seperator").textContent;
 let hostname=document.getElementById("terminal_prompt_hostname").textContent;
@@ -10,7 +11,7 @@ let seperator=document.getElementById("terminal_prompt_seperator").textContent;
 let path=document.getElementById("active_terminal_prompt_path").textContent;
 let symbol=document.getElementById("active_terminal_prompt_symbol").textContent;
 const start_time=new Date();
-let resolution="1440x900";
+let resolution=`${terminal.offsetWidth}x${terminal.offsetHeight}`;
 
 function update_current_directory(input) {
     document.getElementById("active_terminal_prompt_path").textContent=input;

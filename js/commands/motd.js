@@ -5,6 +5,7 @@ function show_motd_output($args) {
     const uptime_hours=Math.floor(timediff/3600000);
     const uptime_minutes=Math.floor(timediff/60000);
     const uptime_seconds=Math.floor(timediff/1000);
+    resolution=`${terminal.offsetWidth}x${terminal.offsetHeight}`;
     uptime=`${uptime_days > 0 ? uptime_days + "d" : ""}${uptime_hours > 0 ? uptime_hours + "h" : ""}${uptime_minutes > 0 ? uptime_minutes + "m" : ""}${uptime_seconds > 0 ? uptime_seconds + "s" : ""}`;
     if (uptime.length==0) { uptime="Booting up"; }
     const logo=`
