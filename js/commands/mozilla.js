@@ -23,7 +23,6 @@ function show_mozilla_output(args) {
     valid=false;
     for (let tmp = 0; tmp < current_files.length; tmp++) {
         const file = current_files[tmp];
-        console.log(`File is valid ${file.name === selected_file}`);
         if (file.name === selected_file) { valid=true; break; }
     }
 
@@ -50,7 +49,6 @@ function show_mozilla_output(args) {
     // valid=false;
     // for (let tmp = 0; tmp < current_files.length; tmp++) {
     //     const file = current_files[tmp];
-    //     console.log(`File is valid ${file.name === selected_file}`);
     //     if (file.name === selected_file) { valid=true; break; }
     // }
 
