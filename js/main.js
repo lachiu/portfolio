@@ -1,7 +1,7 @@
 const terminal_prompt_command=document.getElementById("terminal_prompt_command");
 const accepted_commands=["cd", "ls", "lynx", "mozilla", "history", "help", "motd", "exit"];
 const history=[];
-let current_directory="";
+let current_directory="/var/www/portfolio/";
 let files=null;
 let username=document.getElementById("terminal_prompt_username").textContent;
 let user_host_seperator=document.getElementById("terminal_prompt_username_hostname_seperator").textContent;
@@ -18,9 +18,6 @@ function update_current_directory(input) {
 }
 
 function handle_on_input(event) {
-    console.log(event.currentTarget.textContent);
-    console.log(event.currentTarget.textContent?.length);
-    console.log((event.currentTarget.textContent?.length + 1) + "ch");
     //current_textcontent=terminal_prompt_command.textContent;
     document.getElementById("terminal_prompt_cursor")?.remove();
     if (event.code.includes("Key") || event.code.includes("Digit") || event.code.includes("Numpad") || event.code == "Space") {
@@ -48,13 +45,11 @@ function is_valid_command(input) {
     if (typeof input == "string" && input.length>0) {
         for (let index = 0; index < accepted_commands.length; index++) {
             const element = accepted_commands[index];
-            console.log(`element: ${element} - ${element.includes(input)}`);
             if (element.includes(input)) {
                 valid=true;
             }
         }
     }
-    console.log(valid);
     return valid;
 }
 
@@ -113,7 +108,6 @@ function handle_command(input) {
 
 function handle_on_submit() {
     input=terminal_prompt_command.textContent;
-    console.log(`Input: ${typeof input} - ${input} - ${input.length}`);
     if (typeof input == "string" && input.length>0) {        
         parent_div=document.getElementById("terminal_commands");
         
@@ -144,11 +138,17 @@ terminal_prompt_command.addEventListener("keydown",handle_on_input.bind(this));
 //document.getElementById("active_command").addEventListener("submit",handle_on_submit.bind(this));
 
 function handle_on_load() {
+    setTimeout(60000);
     scripts=document.getElementById("scripts");
     for (let index = 0; index < accepted_commands.length; index++) {
         const command = accepted_commands[index];
         filename="js/commands/" + command + ".js";        
         element=generate_element({elementname: "script", newattr: "src", newvalue: filename});
+        if (command==="motd") { element.addEventListener("load", ()=>{
+            terminal_prompt_command.textContent="motd";
+            handle_on_submit();
+            element.removeEventListener("load", null);
+        }); }
         scripts.appendChild(element);
     }
 
@@ -156,10 +156,5 @@ function handle_on_load() {
     .then(response => response.json())
     .then(data => {
         files = data;
-    });
-
-    update_current_directory("/var/www/portfolio/");
-    terminal_prompt_command.textContent="motd";
-    handle_on_submit();
-    if (is_valid_command("motd") && typeof window["show_motd_output"] !== "undefined") { terminal_prompt_command.textContent="motd"; handle_on_submit(); } else { console.log(is_valid_command("motd")); console.log(typeof window["show_motd_output"] !== "undefined"); }
+    });    
 }
